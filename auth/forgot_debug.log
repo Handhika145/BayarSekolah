@@ -1,0 +1,56 @@
+2026-04-09 17:39:29 | === START REQUEST ===
+2026-04-09 17:39:29 | Method: POST
+2026-04-09 17:39:29 | POST: {"email":"hankaseito145@gmail.com"}
+2026-04-09 17:39:29 | Email: hankaseito145@gmail.com
+2026-04-09 17:39:29 | Query result: OK, rows=1
+2026-04-09 17:39:29 | User found: Handhika
+2026-04-09 17:39:29 | Token: 1624c763adaccfd277a3...
+2026-04-09 17:39:29 | DELETE: OK, affected=1
+2026-04-09 17:39:29 | INSERT: OK, id=12
+2026-04-09 17:41:06 | === START REQUEST ===
+2026-04-09 17:41:06 | Method: POST
+2026-04-09 17:41:06 | POST: {"email":"hankaseito145@gmail.com"}
+2026-04-09 17:41:06 | Email: hankaseito145@gmail.com
+2026-04-09 17:41:06 | Query result: OK, rows=1
+2026-04-09 17:41:06 | User found: Handhika
+2026-04-09 17:41:06 | Token: f98c5d50e81884687076...
+2026-04-09 17:41:06 | DELETE: OK, affected=0
+2026-04-09 17:41:06 | INSERT: OK, id=13
+2026-04-09 17:42:27 | === START REQUEST ===
+2026-04-09 17:42:27 | Method: POST
+2026-04-09 17:42:27 | POST: {"email":"hankaseito145@gmail.com"}
+2026-04-09 17:42:27 | Email: hankaseito145@gmail.com
+2026-04-09 17:42:27 | Query result: OK, rows=1
+2026-04-09 17:42:27 | User found: Handhika
+2026-04-09 17:42:27 | Token: d245b48e6263cb4ee3cd...
+2026-04-09 17:42:27 | DELETE: OK, affected=0
+2026-04-09 17:42:27 | INSERT: OK, id=14
+2026-04-10 03:06:12 | === START REQUEST ===
+2026-04-10 03:06:12 | Method: POST
+2026-04-10 03:06:12 | POST: {"email":"hankaseito145@gmail.com"}
+2026-04-10 03:06:12 | Email: hankaseito145@gmail.com
+2026-04-10 03:06:12 | Query result: OK, rows=1
+2026-04-10 03:06:12 | User found: Handhika
+2026-04-10 03:06:12 | Token: a2143e095a93338ad68e...
+2026-04-10 03:06:12 | DELETE: OK, affected=0
+2026-04-10 03:06:12 | INSERT: OK, id=15
+2026-04-10 08:41:07 | === START REQUEST ===
+2026-04-10 08:41:07 | Method: POST
+2026-04-10 08:41:07 | POST: {"email":"hankaseito145@gmail.com"}
+2026-04-10 08:41:07 | Email: hankaseito145@gmail.com
+2026-04-10 08:41:07 | Query result: OK, rows=1
+2026-04-10 08:41:07 | User found: Handhika
+2026-04-10 08:41:07 | Token: 7cec69982111f2494d8a...
+2026-04-10 08:41:07 | DELETE: OK, affected=0
+2026-04-10 08:41:07 | INSERT: OK, id=16
+2026-04-10 08:41:07 | VERIFY: Token tersimpan OK, ID=16, created_at=2026-04-10 08:41:07
+2026-04-20 20:17:34 | === START REQUEST ===
+2026-04-20 20:17:34 | Method: POST
+2026-04-20 20:17:34 | POST: {"email":"galih110804@gmail.com"}
+2026-04-20 20:17:35 | Email: galih110804@gmail.com
+2026-04-20 20:17:35 | Query result: OK, rows=1
+2026-04-20 20:17:35 | User found: Galuh
+2026-04-20 20:17:35 | Token: 36abbd5b1b714519e21c...
+2026-04-20 20:17:35 | DELETE: OK, affected=0
+2026-04-20 20:17:35 | INSERT: OK, id=17
+2026-04-20 20:17:35 | VERIFY: Token tersimpan OK, ID=17, created_at=2026-04-20 20:17:35

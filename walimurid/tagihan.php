@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bayar'])) {
 
 // --- AMBIL DATA TAGIHAN ---
 // 1. Cari dulu ID siswa dari wali murid ini
-$q_siswa = mysqli_query($koneksi, "SELECT id_siswa, nama_siswa, kelas FROM siswa WHERE id_walimurid = '$id_walimurid' LIMIT 1");
+$q_siswa = mysqli_query($koneksi, "SELECT id_siswa, nama_siswa, kelas, sub_kelas FROM siswa WHERE id_walimurid = '$id_walimurid' LIMIT 1");
 $siswa = mysqli_fetch_assoc($q_siswa);
 
 $tagihanList = [];
@@ -298,7 +298,7 @@ if ($siswa) {
                 </div>
                 <div class="text-right">
                     <p class="font-bold text-xl text-green-600"><?= $siswa['nama_siswa']; ?></p>
-                    <p class="text-sm font-medium text-gray-500 border border-gray-200 bg-gray-50 px-2 py-0.5 rounded inline-block mt-1">Kelas <?= $siswa['kelas']; ?></p>
+                    <p class="text-sm font-medium text-gray-500 border border-gray-200 bg-gray-50 px-2 py-0.5 rounded inline-block mt-1">Kelas <?= $siswa['kelas']; ?> <?= $siswa['sub_kelas']; ?></p>
                 </div>
             </div>
 

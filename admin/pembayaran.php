@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['proses_bayar'])) {
 
 // 1. Ambil data tagihan Menunggu Pembayaran
 $q_menunggu = mysqli_query($koneksi, "
-    SELECT t.*, s.nama_siswa, s.kelas 
+    SELECT t.*, s.nama_siswa, s.kelas, s.sub_kelas 
     FROM tagihan t 
     JOIN siswa s ON t.id_siswa = s.id_siswa 
     WHERE s.id_sekolah = '$id_sekolah' AND t.status = 'Belum Lunas'
@@ -134,7 +134,7 @@ $q_riwayat = mysqli_query($koneksi, "
                             <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
                                 <td class="py-3.5 px-4"><?= $no++; ?></td>
                                 <td class="py-3.5 px-4 font-bold text-gray-800"><?= $m['nama_siswa']; ?></td>
-                                <td class="py-3.5 px-4 text-gray-500 text-xs"><?= $m['kelas']; ?></td>
+                                <td class="py-3.5 px-4 text-gray-500 text-xs"><?= $m['kelas']; ?> <?= $m['sub_kelas']; ?></td>
                                 <td class="py-3.5 px-4 text-gray-500 text-xs"><?= $m['jenis_tagihan']; ?> <?= $m['bulan'] ?></td>
                                 <td class="py-3.5 px-4 font-bold text-red-500">Rp <?= number_format($m['nominal'], 0, ',', '.'); ?></td>
                                 <td class="py-3.5 px-4 flex justify-center">

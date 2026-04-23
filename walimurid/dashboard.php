@@ -73,7 +73,7 @@ if ($siswa) {
     $id_siswa = $siswa['id_siswa'];
 
     $query_tagihan = mysqli_query($koneksi, "
-        SELECT t.*, s.nama_siswa, s.kelas, s.nisn
+        SELECT t.*, s.nama_siswa, s.kelas, s.sub_kelas, s.nisn
         FROM tagihan t
         JOIN siswa s ON t.id_siswa = s.id_siswa
         WHERE s.id_siswa = '$id_siswa'
@@ -313,7 +313,7 @@ function escape($data)
                     <p class="text-gray-500 mt-2 text-lg">
                         Ringkasan administrasi untuk ananda <span
                             class="font-bold text-[#10b981]"><?= escape($siswa['nama_siswa']) ?></span> (Kelas
-                        <?= escape($siswa['kelas']) ?>).
+                        <?= escape($siswa['kelas']) ?> <?= escape($siswa['sub_kelas']) ?>).
                     </p>
                 <?php else: ?>
                     <div class="mt-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-lg shadow-sm">

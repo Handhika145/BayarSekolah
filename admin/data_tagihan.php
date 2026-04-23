@@ -66,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } elseif (isset($_POST['tambah_massal'])) {
         $id_kelas = $_POST['id_kelas'];
+        $sub_kelas_target = $_POST['sub_kelas_massal'] ?? 'Semua';
         $jenis_tagihan = $_POST['jenis_tagihan_massal'];
         $nominal = $_POST['nominal_massal'];
         $tahun = $_POST['tahun_massal'];
@@ -82,7 +83,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if($id_kelas == 'Semua') {
                 $q_sasaran = mysqli_query($koneksi, "SELECT id_siswa FROM siswa WHERE id_sekolah = '$id_sekolah'");
             } else {
-                $q_sasaran = mysqli_query($koneksi, "SELECT id_siswa FROM siswa WHERE id_sekolah = '$id_sekolah' AND kelas = '$id_kelas'");
+                $query_filter = "SELECT id_siswa FROM siswa WHERE id_sekolah = '$id_sekolah' AND kelas = '$id_kelas'";
+                if ($sub_kelas_target !== 'Semua') {
+                    $query_filter .= " AND sub_kelas = '$sub_kelas_target'";
+                }
+                $q_sasaran = mysqli_query($koneksi, $query_filter);
             }
             
             while($s = mysqli_fetch_assoc($q_sasaran)) {
@@ -107,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Ambil data Siswa untuk pilihan dropdown di form
-$q_siswa = mysqli_query($koneksi, "SELECT id_siswa, nisn, nama_siswa, kelas FROM siswa WHERE id_sekolah = '$id_sekolah' ORDER BY kelas ASC, nama_siswa ASC");
+$q_siswa = mysqli_query($koneksi, "SELECT id_siswa, nisn, nama_siswa, kelas, sub_kelas FROM siswa WHERE id_sekolah = '$id_sekolah' ORDER BY kelas ASC, sub_kelas ASC, nama_siswa ASC");
 $data_siswa = [];
 while ($s = mysqli_fetch_assoc($q_siswa)) {
     $data_siswa[] = $s;
@@ -122,7 +127,7 @@ while($k = mysqli_fetch_assoc($q_kelas)){
 
 // Ambil data seluruh Tagihan beserta nama Siswa (JOIN) untuk sekolah admin ini saja
 $q_tagihan = mysqli_query($koneksi, "
-    SELECT t.*, s.nisn, s.nama_siswa, s.kelas 
+    SELECT t.*, s.nisn, s.nama_siswa, s.kelas, s.sub_kelas 
     FROM tagihan t 
     JOIN siswa s ON t.id_siswa = s.id_siswa 
     WHERE s.id_sekolah = '$id_sekolah'
@@ -234,7 +239,7 @@ $list_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', '
                                             <p class="font-semibold text-gray-800"><?= $row['nama_siswa']; ?></p>
                                             <p class="text-[11px] text-gray-400 font-mono">NISN: <?= $row['nisn']; ?></p>
                                         </td>
-                                        <td class="py-3.5 px-4"><?= $row['kelas']; ?></td>
+                                        <td class="py-3.5 px-4"><?= $row['kelas']; ?> <?= $row['sub_kelas']; ?></td>
                                         <td class="py-3.5 px-4 text-gray-500"><?= $row['jenis_tagihan']; ?></td>
                                         <td class="py-3.5 px-4"><?= $row['bulan']; ?> <?= $row['tahun']; ?></td>
                                         <td class="py-3.5 px-4 font-semibold text-gray-800">Rp <?= number_format($row['nominal'], 0, ',', '.'); ?></td>
@@ -276,7 +281,7 @@ $list_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', '
                         <select name="id_siswa" required class="w-full px-3.5 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 outline-none bg-white text-sm">
                             <option value="">-- Pilih Siswa --</option>
                             <?php foreach ($data_siswa as $s): ?>
-                                <option value="<?= $s['id_siswa'] ?>"><?= $s['kelas'] ?> - <?= $s['nama_siswa'] ?> (<?= $s['nisn'] ?>)</option>
+                                <option value="<?= $s['id_siswa'] ?>"><?= $s['kelas'] ?> <?= $s['sub_kelas'] ?> - <?= $s['nama_siswa'] ?> (<?= $s['nisn'] ?>)</option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -331,7 +336,7 @@ $list_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', '
                     <div class="md:col-span-2">
                         <label class="block text-xs font-medium text-gray-500 mb-1">Siswa</label>
                         <select name="id_siswa" id="edit_siswa" required class="w-full px-3.5 py-2 border border-gray-200 rounded-lg outline-none bg-emerald-50/50 text-emerald-800 font-medium text-sm pointer-events-none" readonly>
-                            <?php foreach ($data_siswa as $s): ?><option value="<?= $s['id_siswa'] ?>"><?= $s['kelas'] ?> - <?= $s['nama_siswa'] ?></option><?php endforeach; ?>
+                            <?php foreach ($data_siswa as $s): ?><option value="<?= $s['id_siswa'] ?>"><?= $s['kelas'] ?> <?= $s['sub_kelas'] ?> - <?= $s['nama_siswa'] ?></option><?php endforeach; ?>
                         </select>
                         <p class="text-[11px] text-gray-400 mt-1">Siswa tidak dapat diubah.</p>
                     </div>
@@ -396,6 +401,15 @@ $list_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', '
                             <option value="Semua">Terapkan ke SEMUA SISWA & SEMUA KELAS</option>
                             <?php foreach ($data_kelas as $kls): ?><option value="<?= $kls ?>">Kelas <?= $kls ?></option><?php endforeach; ?>
                         </select>
+                        <div class="mt-3">
+                            <label class="block text-xs font-medium text-gray-500 mb-1">Pilih Sub Kelas (Opsional)</label>
+                            <select name="sub_kelas_massal" class="w-full px-3.5 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 outline-none bg-white text-sm">
+                                <option value="Semua">-- Semua Sub Kelas --</option>
+                                <?php foreach(range('A', 'J') as $char): ?>
+                                    <option value="<?= $char ?>"><?= $char ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                         <p class="text-[11px] text-gray-400 mt-1">Sistem akan otomatis membuat tagihan kepada setiap siswa di kelas ini.</p>
                     </div>
                     <div>

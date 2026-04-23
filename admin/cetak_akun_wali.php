@@ -13,11 +13,11 @@ $nama_sekolah = $_SESSION['nama_sekolah'];
 
 // Ambil data Siswa beserta akun walinya dari database untuk sekolah yang bersangkutan
 $q_siswa = mysqli_query($koneksi, "
-    SELECT s.nama_siswa, s.nisn, s.kelas, u.nama_lengkap AS nama_wali, u.username AS username_wali, u.password_plain
+    SELECT s.nama_siswa, s.nisn, s.kelas, s.sub_kelas, u.nama_lengkap AS nama_wali, u.username AS username_wali, u.password_plain
     FROM siswa s 
     INNER JOIN users u ON s.id_walimurid = u.id_user 
     WHERE s.id_sekolah = '$id_sekolah'  AND u.role = 'walimurid'
-    ORDER BY s.kelas ASC, s.nama_siswa ASC
+    ORDER BY s.kelas ASC, s.sub_kelas ASC, s.nama_siswa ASC
 ");
 ?>
 <!DOCTYPE html>
@@ -105,7 +105,7 @@ $q_siswa = mysqli_query($koneksi, "
                     </div>
                     <div class="flex items-center text-xs">
                         <div class="w-20 font-semibold text-gray-500">Kelas</div>
-                        <div class="font-bold text-gray-800 flex-1">: <?= htmlspecialchars($row['kelas']); ?></div>
+                        <div class="font-bold text-gray-800 flex-1">: <?= htmlspecialchars($row['kelas']); ?> <?= htmlspecialchars($row['sub_kelas']); ?></div>
                     </div>
                     <div class="flex items-center text-xs">
                         <div class="w-20 font-semibold text-gray-500">NISN</div>

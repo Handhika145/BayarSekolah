@@ -29,7 +29,7 @@ if($periode == '1_bulan') {
 }
 
 $q_data = mysqli_query($koneksi, "
-    SELECT p.tgl_bayar, s.nama_siswa, s.kelas, t.jenis_tagihan, t.bulan, t.tahun, t.nominal, u.nama_lengkap AS nama_petugas
+    SELECT p.tgl_bayar, s.nama_siswa, s.kelas, s.sub_kelas, t.jenis_tagihan, t.bulan, t.tahun, t.nominal, u.nama_lengkap AS nama_petugas
     FROM pembayaran p
     JOIN tagihan t ON p.id_tagihan = t.id_tagihan
     JOIN siswa s ON t.id_siswa = s.id_siswa
@@ -52,7 +52,7 @@ if ($format == 'csv') {
         fputcsv($output, [
             $row['tgl_bayar'],
             $row['nama_siswa'],
-            $row['kelas'],
+            $row['kelas'] . ' ' . $row['sub_kelas'],
             $row['jenis_tagihan'],
             $row['bulan'] . ' ' . $row['tahun'],
             $row['nominal'],
@@ -106,7 +106,7 @@ if ($format == 'csv') {
                     <td><?= $no++ ?></td>
                     <td><?= date('d-m-Y', strtotime($row['tgl_bayar'])) ?></td>
                     <td><?= $row['nama_siswa'] ?></td>
-                    <td><?= $row['kelas'] ?></td>
+                    <td><?= $row['kelas'] ?> <?= $row['sub_kelas'] ?></td>
                     <td><?= $row['jenis_tagihan'] ?></td>
                     <td><?= $row['bulan'] ?> <?= $row['tahun'] ?></td>
                     <td><?= $row['nominal'] ?></td>

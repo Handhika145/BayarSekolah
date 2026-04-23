@@ -36,7 +36,7 @@ if ($periode == '1_bulan') {
 }
 
 $q_data = mysqli_query($koneksi, "
-    SELECT p.id_pembayaran, p.tgl_bayar, s.nama_siswa, s.kelas, t.jenis_tagihan, t.bulan, t.tahun, t.nominal, u.nama_lengkap AS nama_petugas
+    SELECT p.id_pembayaran, p.tgl_bayar, s.nama_siswa, s.kelas, s.sub_kelas, t.jenis_tagihan, t.bulan, t.tahun, t.nominal, u.nama_lengkap AS nama_petugas
     FROM pembayaran p
     JOIN tagihan t ON p.id_tagihan = t.id_tagihan
     JOIN siswa s ON t.id_siswa = s.id_siswa
@@ -181,7 +181,7 @@ if (mysqli_num_rows($q_data) > 0) {
                                         <td class="py-3 px-5 font-medium"><?= date('d/m/Y', strtotime($row['tgl_bayar'])); ?></td>
                                         <td class="py-3 px-5">
                                             <p class="font-semibold text-gray-800"><?= $row['nama_siswa']; ?></p>
-                                            <p class="text-[11px] text-gray-400"><?= $row['kelas']; ?></p>
+                                            <p class="text-[11px] text-gray-400"><?= $row['kelas']; ?> <?= $row['sub_kelas']; ?></p>
                                         </td>
                                         <td class="py-3 px-5"><span class="bg-gray-50 text-gray-600 font-medium px-2 py-0.5 rounded text-xs mr-1"><?= $row['jenis_tagihan']; ?></span> <?= $row['bulan']; ?> <?= $row['tahun']; ?></td>
                                         <td class="py-3 px-5 text-right font-semibold text-gray-800">Rp <?= number_format($row['nominal'], 0, ',', '.'); ?></td>
@@ -231,7 +231,7 @@ if (mysqli_num_rows($q_data) > 0) {
                                 <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: center;"><?= $no++; ?></td>
                                 <td style="padding: 8px; border: 1px solid #e2e8f0;"><?= date('d/m/Y', strtotime($row['tgl_bayar'])); ?></td>
                                 <td style="padding: 8px; border: 1px solid #e2e8f0; font-weight: bold;"><?= $row['nama_siswa']; ?></td>
-                                <td style="padding: 8px; border: 1px solid #e2e8f0;"><?= $row['kelas']; ?></td>
+                                <td style="padding: 8px; border: 1px solid #e2e8f0;"><?= $row['kelas']; ?> <?= $row['sub_kelas']; ?></td>
                                 <td style="padding: 8px; border: 1px solid #e2e8f0;"><?= $row['jenis_tagihan'] . ' - ' . $row['bulan'] . ' ' . $row['tahun']; ?></td>
                                 <td style="padding: 8px; border: 1px solid #e2e8f0; text-align: right;"><?= number_format($row['nominal'], 0, ',', '.'); ?></td>
                             </tr>

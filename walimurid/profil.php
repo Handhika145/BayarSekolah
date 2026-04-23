@@ -423,7 +423,7 @@ function escape($data) {
                                             </div>
                                             <div class="flex items-center text-sm text-gray-600">
                                                 <i class="fa-solid fa-school w-6 text-gray-400"></i>
-                                                <span>Kelas <?= escape($siswa['kelas']) ?></span>
+                                                <span>Kelas <?= escape($siswa['kelas']) ?> <?= escape($siswa['sub_kelas']) ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -450,7 +450,7 @@ function escape($data) {
                                             <!-- Kelas -->
                                             <div>
                                                 <label class="block text-sm font-medium text-gray-700 mb-1">Tingkat Kelas</label>
-                                                <input type="text" value="<?= escape($siswa['kelas']) ?>" disabled class="w-full px-4 py-2 bg-gray-50 border border-gray-200 text-gray-600 rounded-lg cursor-not-allowed">
+                                                <input type="text" value="<?= escape($siswa['kelas']) ?> <?= escape($siswa['sub_kelas']) ?>" disabled class="w-full px-4 py-2 bg-gray-50 border border-gray-200 text-gray-600 rounded-lg cursor-not-allowed">
                                             </div>
                                             
                                             <!-- Status Tautan -->

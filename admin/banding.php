@@ -80,9 +80,19 @@ $q_banding = mysqli_query($koneksi, "
     <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }</script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
     </style>
 </head>
 
@@ -91,24 +101,43 @@ $q_banding = mysqli_query($koneksi, "
     <!-- SIDEBAR -->
     <aside class="w-[260px] bg-[#1C2434] text-gray-400 flex flex-col fixed h-full z-20">
         <div class="h-16 flex items-center px-5 border-b border-white/[0.06]">
-            <div class="bg-white/10 p-2 rounded-lg mr-3 shrink-0"><i class="fa-solid fa-graduation-cap text-white text-base"></i></div>
+            <div class="bg-white/10 p-2 rounded-lg mr-3 shrink-0"><i
+                    class="fa-solid fa-graduation-cap text-white text-base"></i></div>
             <div class="overflow-hidden">
-                <h2 class="text-[13px] font-semibold text-white leading-tight truncate w-40" title="<?= $_SESSION['nama_sekolah']; ?>"><?= $_SESSION['nama_sekolah']; ?></h2>
+                <h2 class="text-[13px] font-semibold text-white leading-tight truncate w-40"
+                    title="<?= $_SESSION['nama_sekolah']; ?>"><?= $_SESSION['nama_sekolah']; ?></h2>
                 <p class="text-[10px] text-[#10B981] mt-0.5 font-bold">SaaS Panel</p>
             </div>
         </div>
         <nav class="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto custom-scrollbar">
-            <a href="dashboard.php" class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i class="fa-solid fa-border-all w-7 text-[13px]"></i> Dashboard</a>
-            <a href="data_siswa.php" class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i class="fa-regular fa-user w-7 text-[13px]"></i> Data Siswa & Wali</a>
-            <a href="data_tagihan.php" class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i class="fa-regular fa-credit-card w-7 text-[13px]"></i> Tagihan</a>
-            <a href="pembayaran.php" class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i class="fa-solid fa-money-bill-transfer w-7 text-[13px]"></i> Pembayaran</a>
-            <a href="m_rincian.php" class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i class="fa-solid fa-list-check w-7 text-[13px]"></i> Master Rincian Biaya</a>
-            <a href="laporan.php" class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i class="fa-solid fa-file-invoice-dollar w-7 text-[13px]"></i> Laporan Keuangan</a>
-            <a href="banding.php" class="flex items-center justify-between px-3 py-2.5 bg-[#10B981] text-white shadow-sm rounded-lg text-[13px] font-medium ">
-                <div class="flex items-center"><i class="fa-solid fa-scale-balanced w-7 text-[13px]"></i> Data Banding</div>
-                <?php if (isset($notif_banding) && $notif_banding > 0): ?><span class="bg-red-500/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"><?= $notif_banding; ?></span><?php endif; ?>
+            <a href="dashboard.php"
+                class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i
+                    class="fa-solid fa-border-all w-7 text-[13px]"></i> Dashboard</a>
+            <a href="data_siswa.php"
+                class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i
+                    class="fa-regular fa-user w-7 text-[13px]"></i> Data Siswa & Wali</a>
+            <a href="data_tagihan.php"
+                class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i
+                    class="fa-regular fa-credit-card w-7 text-[13px]"></i> Tagihan</a>
+            <a href="pembayaran.php"
+                class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i
+                    class="fa-solid fa-money-bill-transfer w-7 text-[13px]"></i> Pembayaran</a>
+            <a href="m_rincian.php"
+                class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i
+                    class="fa-solid fa-list-check w-7 text-[13px]"></i> Master Rincian Biaya</a>
+            <a href="laporan.php"
+                class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i
+                    class="fa-solid fa-file-invoice-dollar w-7 text-[13px]"></i> Laporan Keuangan</a>
+            <a href="banding.php"
+                class="flex items-center justify-between px-3 py-2.5 bg-[#10B981] text-white shadow-sm rounded-lg text-[13px] font-medium ">
+                <div class="flex items-center"><i class="fa-solid fa-scale-balanced w-7 text-[13px]"></i> Data Banding
+                </div>
+                <?php if (isset($notif_banding) && $notif_banding > 0): ?><span
+                        class="bg-red-500/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"><?= $notif_banding; ?></span><?php endif; ?>
             </a>
-            <a href="terms.php" class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i class="fa-solid fa-file-contract w-7 text-[13px]"></i> Terms of Service</a>
+            <a href="terms.php"
+                class="flex items-center px-3 py-2.5 hover:bg-white/5 hover:text-gray-200 rounded-lg text-[13px] font-medium transition-all "><i
+                    class="fa-solid fa-file-contract w-7 text-[13px]"></i> Terms of Service</a>
         </nav>
     </aside>
 
@@ -117,8 +146,12 @@ $q_banding = mysqli_query($koneksi, "
         <header class="h-14 bg-white flex items-center justify-between px-8 border-b border-gray-100 sticky top-0 z-10">
             <h1 class="text-sm font-semibold text-gray-800">Pengajuan Banding</h1>
             <div class="flex items-center space-x-4">
-                <div class="flex items-center bg-[#f0fdf4] text-[#166534] px-4 py-1.5 rounded-full text-xs font-semibold mr-2 border border-green-100"> Admin: <?= $nama_admin; ?> </div>
-                <a href="../auth/logout.php" class="flex items-center text-xs text-gray-400 hover:text-gray-600 transition-colors"><i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Logout</a>
+                <div
+                    class="flex items-center bg-[#f0fdf4] text-[#166534] px-4 py-1.5 rounded-full text-xs font-semibold mr-2 border border-green-100">
+                    Admin: <?= $nama_admin; ?> </div>
+                <a href="../auth/logout.php"
+                    class="flex items-center text-xs text-gray-400 hover:text-gray-600 transition-colors"><i
+                        class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Logout</a>
             </div>
         </header>
 
@@ -136,7 +169,8 @@ $q_banding = mysqli_query($koneksi, "
                 <div class="overflow-x-auto custom-scrollbar">
                     <table class="w-full text-left border-collapse min-w-[1000px]">
                         <thead>
-                            <tr class="text-[11px] text-gray-400 uppercase tracking-wider font-medium border-b border-gray-100">
+                            <tr
+                                class="text-[11px] text-gray-400 uppercase tracking-wider font-medium border-b border-gray-100">
                                 <th class="py-3 px-5">Waktu</th>
                                 <th class="py-3 px-5">Pengirim (Wali)</th>
                                 <th class="py-3 px-5">Rincian Tagihan</th>
@@ -153,15 +187,19 @@ $q_banding = mysqli_query($koneksi, "
                                     <tr class="hover:bg-gray-50/50 transition-colors">
                                         <td class="py-4 px-5 text-gray-400 text-xs">
                                             <?= date('d M Y', strtotime($row['tgl_pengajuan'])); ?><br>
-                                            <span class="text-gray-300"><?= date('H:i', strtotime($row['tgl_pengajuan'])); ?> WIB</span>
+                                            <span class="text-gray-300"><?= date('H:i', strtotime($row['tgl_pengajuan'])); ?>
+                                                WIB</span>
                                         </td>
                                         <td class="py-4 px-5">
                                             <p class="font-semibold text-gray-800"><?= $row['nama_wali']; ?></p>
                                         </td>
                                         <td class="py-4 px-5">
-                                            <p class="font-semibold text-gray-800"><?= $row['nama_siswa']; ?> (<?= $row['kelas']; ?>)</p>
-                                            <p class="text-xs text-gray-400"><?= $row['jenis_tagihan']; ?> <?= $row['bulan']; ?> <?= $row['tahun']; ?></p>
-                                            <p class="text-sm font-semibold text-gray-700 mt-0.5">Rp <?= number_format($row['nominal'], 0, ',', '.'); ?></p>
+                                            <p class="font-semibold text-gray-800"><?= $row['nama_siswa']; ?>
+                                                (<?= $row['kelas']; ?>)</p>
+                                            <p class="text-xs text-gray-400"><?= $row['jenis_tagihan']; ?>         <?= $row['bulan']; ?>
+                                                <?= $row['tahun']; ?></p>
+                                            <p class="text-sm font-semibold text-gray-700 mt-0.5">Rp
+                                                <?= number_format($row['nominal'], 0, ',', '.'); ?></p>
                                         </td>
                                         <td class="py-4 px-5 max-w-[200px]">
                                             <button onclick="lihatBukti('../uploads/<?= $row['bukti_transfer']; ?>')"
@@ -169,7 +207,8 @@ $q_banding = mysqli_query($koneksi, "
                                                 <i class="fa-solid fa-image mr-1"></i> Cek Bukti
                                             </button>
                                             <?php if (!empty($row['pesan_banding'])): ?>
-                                                <div class="bg-gray-50 border-l-2 border-gray-200 p-2 rounded text-xs text-gray-500 italic mt-1">
+                                                <div
+                                                    class="bg-gray-50 border-l-2 border-gray-200 p-2 rounded text-xs text-gray-500 italic mt-1">
                                                     "<?= htmlspecialchars($row['pesan_banding']); ?>"
                                                 </div>
                                             <?php endif; ?>
@@ -198,17 +237,20 @@ $q_banding = mysqli_query($koneksi, "
                                                     Proses
                                                 </button>
                                             <?php else: ?>
-                                                <span class="text-gray-400 text-sm" title="Selesai"><i class="fa-solid fa-check-double"></i></span>
+                                                <span class="text-gray-400 text-sm" title="Selesai"><i
+                                                        class="fa-solid fa-check-double"></i></span>
                                             <?php endif; ?>
                                         </td>
                                     </tr>
-                                        <?php
+                                    <?php
                                 endwhile;
                             else:
                                 ?>
-                                   <tr>
-                                    <td colspan="6" class="text-center py-12 text-gray-400"><i class="fa-regular fa-envelope-open text-3xl block mb-3 text-emerald-300 drop-shadow-sm"></i> Belum ada pengajuan banding.</td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="6" class="text-center py-12 text-gray-400"><i
+                                            class="fa-regular fa-envelope-open text-3xl block mb-3 text-emerald-300 drop-shadow-sm"></i>
+                                        Belum ada pengajuan banding.</td>
+                                </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
@@ -219,11 +261,14 @@ $q_banding = mysqli_query($koneksi, "
     </div>
 
     <!-- MODAL LIHAT BUKTI -->
-    <div id="modalBukti" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center z-50 transition-opacity p-4">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col" id="modalBuktiContent">
+    <div id="modalBukti"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center z-50 transition-opacity p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col"
+            id="modalBuktiContent">
             <div class="bg-[#10B981] p-4 flex justify-between items-center text-white">
                 <h3 class="font-semibold text-sm"><i class="fa-solid fa-image mr-2"></i> Bukti Transfer</h3>
-                <button onclick="closeModal('modalBukti')" class="text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button onclick="closeModal('modalBukti')" class="text-gray-400 hover:text-white transition"><i
+                        class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="p-4 bg-gray-100 flex justify-center items-center min-h-[400px]">
                 <img id="imgBukti" src="" alt="Bukti Transfer" class="max-h-[80vh] max-w-full object-contain rounded">
@@ -232,21 +277,26 @@ $q_banding = mysqli_query($koneksi, "
     </div>
 
     <!-- MODAL PROSES BANDING -->
-    <div id="modalProses" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center z-50 transition-opacity">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300" id="modalProsesContent">
+    <div id="modalProses"
+        class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center z-50 transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300"
+            id="modalProsesContent">
             <div class="bg-[#10B981] p-5 flex justify-between items-center text-white">
                 <h3 class="font-semibold text-sm"><i class="fa-solid fa-scale-balanced mr-2"></i> Proses Banding</h3>
-                <button onclick="closeModal('modalProses')" class="text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button onclick="closeModal('modalProses')" class="text-gray-400 hover:text-white transition"><i
+                        class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <form action="" method="POST" class="p-6">
                 <input type="hidden" name="id_banding" id="proses_id_banding">
                 <input type="hidden" name="id_tagihan" id="proses_id_tagihan">
 
-                <p class="text-xs text-gray-500 mb-4">Ubah status verifikasi untuk tagihan atas nama <strong id="proses_nama" class="text-gray-800"></strong>.</p>
+                <p class="text-xs text-gray-500 mb-4">Ubah status verifikasi untuk tagihan atas nama <strong
+                        id="proses_nama" class="text-gray-800"></strong>.</p>
 
                 <div>
                     <label class="block text-xs font-medium text-gray-500 mb-2">Update Status</label>
-                    <select name="status_banding" id="proses_status" required class="w-full px-3.5 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 outline-none bg-white text-sm font-medium">
+                    <select name="status_banding" id="proses_status" required
+                        class="w-full px-3.5 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 outline-none bg-white text-sm font-medium">
                         <option value="Menunggu">Menunggu</option>
                         <option value="Diproses">Sedang Diproses (Cek Mutasi)</option>
                         <option value="Selesai">Selesai (Setujui & Lunasi)</option>
@@ -254,13 +304,17 @@ $q_banding = mysqli_query($koneksi, "
                     </select>
                 </div>
 
-                <div class="mt-4 p-3 bg-amber-50 border-l-2 border-amber-300 text-xs text-amber-700 rounded-lg leading-relaxed">
-                    <i class="fa-solid fa-circle-info mr-1"></i> Jika memilih <strong>"Selesai"</strong>, tagihan otomatis dianggap Lunas.
+                <div
+                    class="mt-4 p-3 bg-amber-50 border-l-2 border-amber-300 text-xs text-amber-700 rounded-lg leading-relaxed">
+                    <i class="fa-solid fa-circle-info mr-1"></i> Jika memilih <strong>"Selesai"</strong>, tagihan
+                    otomatis dianggap Lunas.
                 </div>
 
                 <div class="mt-6 flex justify-end space-x-2">
-                    <button type="button" onclick="closeModal('modalProses')" class="px-4 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 font-medium transition text-xs">Batal</button>
-                    <button type="submit" name="proses_banding" class="px-4 py-2 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg font-semibold transition text-xs flex items-center">
+                    <button type="button" onclick="closeModal('modalProses')"
+                        class="px-4 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 font-medium transition text-xs">Batal</button>
+                    <button type="submit" name="proses_banding"
+                        class="px-4 py-2 bg-[#10B981] hover:bg-[#059669] text-white rounded-lg font-semibold transition text-xs flex items-center">
                         <i class="fa-solid fa-save mr-1.5"></i> Simpan Status
                     </button>
                 </div>

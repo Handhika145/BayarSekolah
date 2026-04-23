@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tambah'])) {
     $nisn = mysqli_real_escape_string($koneksi, $_POST['nisn']);
     $nama_siswa = mysqli_real_escape_string($koneksi, $_POST['nama_siswa']);
     $kelas = mysqli_real_escape_string($koneksi, $_POST['kelas']);
+    $sub_kelas = mysqli_real_escape_string($koneksi, $_POST['sub_kelas']);
 
     // Data Akun Wali Murid Baru
     $nama_wali = mysqli_real_escape_string($koneksi, $_POST['nama_wali']);
@@ -64,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tambah'])) {
             }
 
             // 3. Simpan Data Siswa
-            $q_siswa = "INSERT INTO siswa (id_sekolah, nisn, nama_siswa, kelas, id_walimurid) VALUES ('$id_sekolah', '$nisn', '$nama_siswa', '$kelas', $id_wali_baru)";
+            $q_siswa = "INSERT INTO siswa (id_sekolah, nisn, nama_siswa, kelas, sub_kelas, id_walimurid) VALUES ('$id_sekolah', '$nisn', '$nama_siswa', '$kelas', '$sub_kelas', $id_wali_baru)";
             mysqli_query($koneksi, $q_siswa);
 
             mysqli_commit($koneksi);
@@ -83,9 +84,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
     $nisn = mysqli_real_escape_string($koneksi, $_POST['nisn']);
     $nama_siswa = mysqli_real_escape_string($koneksi, $_POST['nama_siswa']);
     $kelas = mysqli_real_escape_string($koneksi, $_POST['kelas']);
+    $sub_kelas = mysqli_real_escape_string($koneksi, $_POST['sub_kelas']);
     $id_walimurid = empty($_POST['id_walimurid']) ? 'NULL' : "'" . $_POST['id_walimurid'] . "'";
 
-    $query = "UPDATE siswa SET nisn='$nisn', nama_siswa='$nama_siswa', kelas='$kelas', id_walimurid=$id_walimurid WHERE id_siswa='$id_siswa' AND id_sekolah='$id_sekolah'";
+    $query = "UPDATE siswa SET nisn='$nisn', nama_siswa='$nama_siswa', kelas='$kelas', sub_kelas='$sub_kelas', id_walimurid=$id_walimurid WHERE id_siswa='$id_siswa' AND id_sekolah='$id_sekolah'";
     if (mysqli_query($koneksi, $query)) {
         $pesan = "<div class='bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6 rounded shadow-sm'>Data siswa berhasil diperbarui!</div>";
     }
@@ -112,7 +114,7 @@ $q_siswa = mysqli_query($koneksi, "
     FROM siswa s 
     LEFT JOIN users u ON s.id_walimurid = u.id_user 
     $filter_where
-    ORDER BY s.kelas ASC, s.nama_siswa ASC
+    ORDER BY s.kelas ASC, s.sub_kelas ASC, s.nama_siswa ASC
 ");
 
 // Ambil List Kelas Unik untuk Filter
@@ -283,7 +285,7 @@ while($lk = mysqli_fetch_assoc($q_list_kelas)) {
                                         </td>
                                         <td class="py-3.5 px-4 align-top">
                                             <span class="bg-emerald-50 text-emerald-700 border border-emerald-100 py-1 px-2.5 rounded-md text-xs font-medium">
-                                                <?= $row['kelas']; ?>
+                                                <?= $row['kelas']; ?> <?= $row['sub_kelas']; ?>
                                             </span>
                                         </td>
                                         <td class="py-3.5 px-4">
@@ -298,7 +300,7 @@ while($lk = mysqli_fetch_assoc($q_list_kelas)) {
                                         </td>
                                         <td class="py-3.5 px-4 flex justify-center space-x-1.5 align-top">
                                             <button
-                                                onclick="openEditModal('<?= $row['id_siswa'] ?>', '<?= $row['nisn'] ?>', '<?= $row['nama_siswa'] ?>', '<?= $row['kelas'] ?>', '<?= $row['id_walimurid'] ?>')"
+                                                onclick="openEditModal('<?= $row['id_siswa'] ?>', '<?= $row['nisn'] ?>', '<?= $row['nama_siswa'] ?>', '<?= $row['kelas'] ?>', '<?= $row['sub_kelas'] ?>', '<?= $row['id_walimurid'] ?>')"
                                                 class="bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white p-2 rounded-lg transition"
                                                 title="Edit Identitas Siswa">
                                                 <i class="fa-solid fa-pen text-xs"></i>
@@ -350,7 +352,15 @@ while($lk = mysqli_fetch_assoc($q_list_kelas)) {
                             </div>
                             <div>
                                 <label class="block text-xs font-medium text-gray-500 mb-1">Kelas <span class="text-red-400">*</span></label>
-                                <input type="text" name="kelas" required class="w-full px-3.5 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 outline-none text-sm" placeholder="Cth: X MIPA 1">
+                                <input type="text" name="kelas" required class="w-full px-3.5 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 outline-none text-sm" placeholder="Cth: VII">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500 mb-1">Sub Kelas <span class="text-red-400">*</span></label>
+                                <select name="sub_kelas" required class="w-full px-3.5 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 outline-none text-sm bg-white">
+                                    <?php foreach(range('A', 'J') as $char): ?>
+                                        <option value="<?= $char ?>"><?= $char ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                             <div class="md:col-span-2">
                                 <label class="block text-xs font-medium text-gray-500 mb-1">Nama Lengkap Siswa <span class="text-red-400">*</span></label>
@@ -415,9 +425,19 @@ while($lk = mysqli_fetch_assoc($q_list_kelas)) {
                             <label class="block text-xs font-medium text-gray-500 mb-1">Nama Lengkap Siswa</label>
                             <input type="text" name="nama_siswa" id="edit_nama" required class="w-full px-3.5 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 outline-none text-sm">
                         </div>
-                        <div>
-                            <label class="block text-xs font-medium text-gray-500 mb-1">Kelas</label>
-                            <input type="text" name="kelas" id="edit_kelas" required class="w-full px-3.5 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 outline-none text-sm">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500 mb-1">Kelas</label>
+                                <input type="text" name="kelas" id="edit_kelas" required class="w-full px-3.5 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500 mb-1">Sub Kelas</label>
+                                <select name="sub_kelas" id="edit_sub_kelas" required class="w-full px-3.5 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-300 outline-none text-sm bg-white">
+                                    <?php foreach(range('A', 'J') as $char): ?>
+                                        <option value="<?= $char ?>"><?= $char ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                         </div>
                         <div class="pt-2 border-t border-gray-100">
                             <label class="block text-xs font-medium text-gray-500 mb-2">Ubah Tautan Wali Murid</label>
@@ -460,11 +480,12 @@ while($lk = mysqli_fetch_assoc($q_list_kelas)) {
             }, 200);
         }
 
-        function openEditModal(id, nisn, nama, kelas, id_wali) {
+        function openEditModal(id, nisn, nama, kelas, sub_kelas, id_wali) {
             document.getElementById('edit_id').value = id;
             document.getElementById('edit_nisn').value = nisn;
             document.getElementById('edit_nama').value = nama;
             document.getElementById('edit_kelas').value = kelas;
+            document.getElementById('edit_sub_kelas').value = sub_kelas;
             document.getElementById('edit_wali').value = id_wali;
             openModal('modalEdit');
         }
